@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// For non-Freezed version
+// For non-freezed version
 import 'package:simple_navigator/application/router_cubit/router_cubit.dart';
 import 'router/root_router_delegate.dart';
 // For freezed version
@@ -10,6 +10,7 @@ import 'freezed_router/root_freezed_router_delegate.dart';
 
 class AppRoot extends StatelessWidget {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  // true - use freezed version; false - use non-freezed version
   static const bool _useFreezed = true;
 
   AppRoot({Key? key}) : super(key: key);
