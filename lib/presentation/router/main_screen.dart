@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_navigator/application/main_navigation/main_navigation_cubit.dart';
-import 'package:simple_navigator/presentation/main_screen/main_screen_tab_page.dart';
+import 'package:simple_navigator/application/router_cubit/router_cubit.dart';
+import 'package:simple_navigator/presentation/main_screen_tab_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     _tabCtrl = TabController(
-      initialIndex: _pageIndexFromState(context.read<MainNavigationCubit>().state),
+      initialIndex: _pageIndexFromState(context.read<RouterCubit>().state),
       vsync: this,
       length: _tabs.length,
     );
@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   }
 
   @override
-  Widget build(_) => BlocConsumer<MainNavigationCubit, MainNavigationState>(
+  Widget build(_) => BlocConsumer<RouterCubit, RouterState>(
         listener: _listener,
         builder: (context, state) => Scaffold(
           body: _body(context),
@@ -57,8 +57,8 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         ),
       );
 
-  void _listener(BuildContext context, MainNavigationState state) {
-    final int pageIndex = _pageIndexFromState(context.read<MainNavigationCubit>().state);
+  void _listener(BuildContext context, RouterState state) {
+    final int pageIndex = _pageIndexFromState(context.read<RouterCubit>().state);
     if (_tabCtrl != null) _tabCtrl?.animateTo(pageIndex, curve: Curves.easeInOut);
   }
 
@@ -71,25 +71,25 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   List<Widget> _pages(BuildContext context) => [
         MainScreenTabPage(
           text: "Page 1",
-          onBtnTap: () => context.read<MainNavigationCubit>().goToPage1("Flutter is number 1."),
+          onBtnTap: () => context.read<RouterCubit>().goToPage1("Flutter is number 1."),
         ),
         MainScreenTabPage(
           text: "Page 2",
-          onBtnTap: () => context.read<MainNavigationCubit>().goToPage2("2 googly eyes"),
+          onBtnTap: () => context.read<RouterCubit>().goToPage2("2 googly eyes"),
         ),
         MainScreenTabPage(
           text: "Page 3",
-          onBtnTap: () => context.read<MainNavigationCubit>().goToPage3("Mom's spaghetti at 3."),
+          onBtnTap: () => context.read<RouterCubit>().goToPage3("Mom's spaghetti at 3."),
         ),
         MainScreenTabPage(
           text: "Page 4",
-          onBtnTap: () => context.read<MainNavigationCubit>().goToPage4("Shoot for 4!"),
+          onBtnTap: () => context.read<RouterCubit>().goToPage4("Shoot for 4!"),
         ),
       ];
 
   Widget _bottomNavigationBar(
     BuildContext context,
-    MainNavigationState state,
+    RouterState state,
   ) =>
       Container(
         color: Colors.green[500],
@@ -98,16 +98,16 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
           onTap: (index) {
             switch (index) {
               case 1:
-                context.read<MainNavigationCubit>().goToPage2();
+                context.read<RouterCubit>().goToPage2();
                 break;
               case 2:
-                context.read<MainNavigationCubit>().goToPage3();
+                context.read<RouterCubit>().goToPage3();
                 break;
               case 3:
-                context.read<MainNavigationCubit>().goToPage4();
+                context.read<RouterCubit>().goToPage4();
                 break;
               default:
-                context.read<MainNavigationCubit>().goToPage1();
+                context.read<RouterCubit>().goToPage1();
                 break;
             }
           },
@@ -115,10 +115,15 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         ),
       );
 
-  int _pageIndexFromState(MainNavigationState state) => state.maybeWhen(
-        orElse: () => 0,
-        page2: (_) => 1,
-        page3: (_) => 2,
-        page4: (_) => 3,
-      );
+  int _pageIndexFromState(RouterState state) {
+    if (state is Page2State) {
+      return 1;
+    } else if (state is Page3State) {
+      return 2;
+    } else if (state is Page4State) {
+      return 3;
+    } else {
+      return 0;
+    }
+  }
 }
