@@ -36,11 +36,11 @@ class RootFreezedRouterDelegate extends RouterDelegate<FreezedRouterState>
   @override
   Future<bool> popRoute() async {
     if (_extraPages.isNotEmpty) {
-      await _routerCubit.popExtra();
+      _routerCubit.popExtra();
       return true;
     }
     if (!_routerCubit.state.isRootPage) {
-      await _routerCubit.goToPage1();
+      _routerCubit.goToPage1();
       return true;
     }
     return await _confirmAppExit();

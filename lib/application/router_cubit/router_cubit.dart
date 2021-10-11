@@ -6,15 +6,15 @@ part 'router_state.dart';
 class RouterCubit extends Cubit<RouterState> {
   RouterCubit() : super(const Page1State());
 
-  Future<void> goToPage1([String? text]) async => emit(Page1State(text));
+  void goToPage1([String? text]) => emit(Page1State(text));
 
-  Future<void> goToPage2([String? text]) async => emit(Page2State(text));
+  void goToPage2([String? text]) => emit(Page2State(text));
 
-  Future<void> goToPage3([String? text]) async => emit(Page3State(text));
+  void goToPage3([String? text]) => emit(Page3State(text));
 
-  Future<void> goToPage4([String? text]) async => emit(Page4State(text));
+  void goToPage4([String? text]) => emit(Page4State(text));
 
-  Future<void> popExtra() async {
+  void popExtra() {
     if (state is Page2State) {
       goToPage2();
     } else if (state is Page3State) {

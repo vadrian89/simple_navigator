@@ -7,19 +7,15 @@ part 'freezed_router_cubit.freezed.dart';
 class FreezedRouterCubit extends Cubit<FreezedRouterState> {
   FreezedRouterCubit() : super(const FreezedRouterState.page1());
 
-  Future<void> goToPage1([String? text]) async =>
-      emit(FreezedRouterState.page1(extraPageContent: text));
+  void goToPage1([String? text]) => emit(FreezedRouterState.page1(extraPageContent: text));
 
-  Future<void> goToPage2([String? text]) async =>
-      emit(FreezedRouterState.page2(extraPageContent: text));
+  void goToPage2([String? text]) => emit(FreezedRouterState.page2(extraPageContent: text));
 
-  Future<void> goToPage3([String? text]) async =>
-      emit(FreezedRouterState.page3(extraPageContent: text));
+  void goToPage3([String? text]) => emit(FreezedRouterState.page3(extraPageContent: text));
 
-  Future<void> goToPage4([String? text]) async =>
-      emit(FreezedRouterState.page4(extraPageContent: text));
+  void goToPage4([String? text]) => emit(FreezedRouterState.page4(extraPageContent: text));
 
-  Future<void> popExtra() async {
+  void popExtra() {
     state.maybeWhen(
       orElse: () => goToPage1(),
       page2: (_) => goToPage2(),

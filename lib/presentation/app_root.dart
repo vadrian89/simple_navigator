@@ -11,7 +11,7 @@ import 'freezed_router/root_freezed_router_delegate.dart';
 class AppRoot extends StatelessWidget {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   // true - use freezed version; false - use non-freezed version
-  static const bool _useFreezed = true;
+  static const bool _useFreezed = false;
 
   AppRoot({Key? key}) : super(key: key);
 
@@ -25,15 +25,13 @@ class AppRoot extends StatelessWidget {
             create: (context) => RouterCubit(),
           ),
         ],
-        child: Builder(
-          builder: (context) => MaterialApp(
-            theme: ThemeData.from(
-              colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: Colors.blue,
-              ).copyWith(secondary: Colors.yellow),
-            ),
-            home: _useFreezed ? _freezedRouter : _router,
+        child: MaterialApp(
+          theme: ThemeData.from(
+            colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: Colors.blue,
+            ).copyWith(secondary: Colors.yellow),
           ),
+          home: _useFreezed ? _freezedRouter : _router,
         ),
       );
 

@@ -35,11 +35,11 @@ class RootRouterDelegate extends RouterDelegate<RouterState>
   @override
   Future<bool> popRoute() async {
     if (_extraPages.isNotEmpty) {
-      await _routerCubit.popExtra();
+      _routerCubit.popExtra();
       return true;
     }
     if (_routerCubit.state is! Page1State) {
-      await _routerCubit.goToPage1();
+      _routerCubit.goToPage1();
       return true;
     }
     return await _confirmAppExit();
