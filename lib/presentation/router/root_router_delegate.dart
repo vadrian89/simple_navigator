@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:simple_navigator/application/router_cubit/router_cubit.dart';
 import 'package:simple_navigator/presentation/router/main_screen.dart';
 import 'package:simple_navigator/presentation/second_level_screen.dart';
 
-class RootRouterDelegate extends RouterDelegate<RouterState>
-    with PopNavigatorRouterDelegateMixin<RouterState> {
+class RootRouterDelegate extends RouterDelegate<RouterState> {
   final GlobalKey<NavigatorState> _navigatorKey;
   final RouterCubit _routerCubit;
 
@@ -13,7 +13,6 @@ class RootRouterDelegate extends RouterDelegate<RouterState>
       : _navigatorKey = navigatorKey,
         _routerCubit = routerCubit;
 
-  @override
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
   @override
@@ -95,15 +94,15 @@ class RootRouterDelegate extends RouterDelegate<RouterState>
           context: navigatorKey.currentContext!,
           builder: (context) {
             return AlertDialog(
-              title: const Text('Exit App'),
-              content: const Text('Are you sure you want to exit the app?'),
+              title: const Text("Exit App"),
+              content: const Text("Are you sure you want to exit the app?"),
               actions: [
                 TextButton(
-                  child: const Text('Cancel'),
+                  child: const Text("Cancel"),
                   onPressed: () => Navigator.pop(context, true),
                 ),
                 TextButton(
-                  child: const Text('Confirm'),
+                  child: const Text("Confirm"),
                   onPressed: () => Navigator.pop(context, false),
                 ),
               ],
@@ -128,7 +127,7 @@ class RootRouterDelegate extends RouterDelegate<RouterState>
   @override
   void removeListener(VoidCallback listener) {}
 
-  //It's not needed for bloc/cubit
+  //It's not needed for now
   @override
   Future<void> setNewRoutePath(RouterState configuration) async {}
 }

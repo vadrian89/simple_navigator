@@ -5,8 +5,7 @@ import 'package:simple_navigator/presentation/second_level_screen.dart';
 
 import 'main_screen.dart';
 
-class RootFreezedRouterDelegate extends RouterDelegate<FreezedRouterState>
-    with PopNavigatorRouterDelegateMixin<FreezedRouterState> {
+class RootFreezedRouterDelegate extends RouterDelegate<FreezedRouterState> {
   final GlobalKey<NavigatorState> _navigatorKey;
   final FreezedRouterCubit _routerCubit;
 
@@ -14,7 +13,6 @@ class RootFreezedRouterDelegate extends RouterDelegate<FreezedRouterState>
       : _navigatorKey = navigatorKey,
         _routerCubit = routerCubit;
 
-  @override
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
   @override
