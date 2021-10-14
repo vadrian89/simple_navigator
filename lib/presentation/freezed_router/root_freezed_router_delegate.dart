@@ -78,22 +78,20 @@ class RootFreezedRouterDelegate extends RouterDelegate<FreezedRouterState> {
   Future<bool> _confirmAppExit() async =>
       await showDialog<bool>(
           context: navigatorKey.currentContext!,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('Exit App'),
-              content: const Text('Are you sure you want to exit the app?'),
-              actions: [
-                TextButton(
-                  child: const Text('Cancel'),
-                  onPressed: () => Navigator.pop(context, true),
-                ),
-                TextButton(
-                  child: const Text('Confirm'),
-                  onPressed: () => Navigator.pop(context, false),
-                ),
-              ],
-            );
-          }) ??
+          builder: (context) => AlertDialog(
+                title: const Text('Exit App'),
+                content: const Text('Are you sure you want to exit the app?'),
+                actions: [
+                  TextButton(
+                    child: const Text('Cancel'),
+                    onPressed: () => Navigator.pop(context, true),
+                  ),
+                  TextButton(
+                    child: const Text('Confirm'),
+                    onPressed: () => Navigator.pop(context, false),
+                  ),
+                ],
+              )) ??
       true;
 
   Page _materialPage({
